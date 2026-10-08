@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>退出代码说明 Exit Codes — 妙复制大师 CopyDash</title>
+<style>
+  :root { --fg:#1d1d1f; --dim:#6e6e73; --line:#e3e3e6; --bg:#faf9f6; --card:#fff; --acc:#0e8a6d }
+  @media (prefers-color-scheme: dark) { :root { --fg:#f5f5f7; --dim:#a1a1a6; --line:#33333a; --bg:#16161a; --card:#1e1e23; --acc:#3dbf9b } }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--fg);
+         font:16px/1.7 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif }
+  .wrap { max-width:860px; margin:0 auto; padding:40px 22px 80px }
+  h1 { font-size:30px; margin:0 0 6px }
+  h2 { font-size:20px; margin:38px 0 12px; padding-bottom:8px; border-bottom:1px solid var(--line) }
+  .sub { color:var(--dim); margin:0 0 26px }
+  table { width:100%; border-collapse:collapse; background:var(--card); border:1px solid var(--line);
+          border-radius:10px; overflow:hidden; font-size:15px }
+  th,td { text-align:left; padding:11px 14px; border-bottom:1px solid var(--line); vertical-align:top }
+  th { background:rgba(127,127,127,.07); font-weight:600 }
+  tr:last-child td { border-bottom:0 }
+  code { background:rgba(127,127,127,.12); padding:2px 6px; border-radius:5px; font-size:14px }
+  .big { font-size:19px; font-weight:700; color:var(--acc) }
+  ul { padding-left:20px } li { margin:6px 0 }
+  footer { margin-top:44px; padding-top:16px; border-top:1px solid var(--line); color:var(--dim); font-size:14px }
+  a { color:var(--acc) }
+  .en { color:var(--dim); font-size:14px }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>安装程序退出代码说明</h1>
+  <p class="sub">Setup exit codes — 妙复制大师 / CopyDash &nbsp;·&nbsp; 安装程序 Setup 1.0.1</p>
+
+  <p>本页说明「妙复制大师 CopyDash」Windows 安装程序（<code>妙复制大师-CopyDash-Setup.exe</code>）
+     在退出时可能返回的全部代码。安装程序不带命令行界面，支持静默安装
+     <code>/S</code>，安装到当前用户目录（<code>%LOCALAPPDATA%\Programs\CopyDash</code>），
+     不需要管理员权限、不写系统目录、不写 HKLM、不联网、不需要重启。</p>
+
+  <h2>返回代码表</h2>
+  <table>
+    <tr><th style="width:150px">返回值</th><th>含义</th></tr>
+    <tr>
+      <td class="big">0</td>
+      <td>安装成功。文件已就位、注册表项（<code>HKCU\Software\CopyDash</code>）、开始菜单快捷方式与卸载程序均已创建。<br>
+          <span class="en">Success — the application was installed completely.</span></td>
+    </tr>
+    <tr>
+      <td class="big">1602</td>
+      <td>用户已取消安装（<code>ERROR_INSTALL_USEREXIT</code>）。用户在向导中点击「取消」，并在确认对话框中选择「是」，安装被中止且未做任何更改。<br>
+          <span class="en">User cancelled the installation; nothing was changed.</span></td>
+    </tr>
+    <tr>
+      <td class="big">1603</td>
+      <td>安装失败（<code>ERROR_INSTALL_FAILURE</code>）。发生在下列情况：① 妙复制大师本体仍在运行，占用着待替换的程序文件；② 无法写入安装目录（无写权限、磁盘空间不足或磁盘不可写）。<br>
+          <span class="en">Fatal error during installation — the app is running and its files are locked, or the target folder could not be written (no permission / disk full).</span></td>
+    </tr>
+  </table>
+
+  <h2>关于其他数值</h2>
+  <ul>
+    <li>本安装程序<b>只主动返回</b>上表三种代码。</li>
+    <li>若收到上表以外的退出代码，说明进程在安装程序自身逻辑开始之前就被系统拦下或终止（例如 AppLocker / 组策略 / 安全软件禁止运行、被手动结束进程）。这类代码由 Windows 产生，不是安装程序设置的。常见示例：<code>5</code> 拒绝访问、<code>2</code> 找不到文件、<code>1</code> 进程被中止。</li>
+    <li>安装程序不检测、也不返回「需要重启」「网络故障」「应用程序已存在」等代码：它不联网、不注册系统服务、不需要重启；已经装过的情况下会原地覆盖升级并返回 <code>0</code>。</li>
+    <li>遇到 <code>1603</code> 时：先退出正在运行的妙复制大师（任务栏图标 → 右键退出），确认磁盘有几十 MB 空闲，然后重跑安装程序即可。</li>
+  </ul>
+
+  <h2>English summary</h2>
+  <table>
+    <tr><th style="width:150px">Exit code</th><th>Meaning</th></tr>
+    <tr><td class="big">0</td><td>Installation succeeded.</td></tr>
+    <tr><td class="big">1602</td><td>User cancelled; nothing was changed.</td></tr>
+    <tr><td class="big">1603</td><td>Fatal error: the app is still running (locked files) or the install folder is not writable.</td></tr>
+  </table>
+  <p class="en">Only the three codes above are returned by the installer itself. Any other value comes from Windows
+     (blocked by policy/security software, or the process was terminated before setup logic ran). The installer never
+     needs a reboot, does not use the network, and upgrades in place — so no "reboot required", "network failure" or
+     "already installed" codes are ever returned. Silent install: <code>/S</code>.</p>
+
+  <footer>
+    妙复制大师 / CopyDash · 发布者 Publisher: dale003 ·
+    <a href="index.html">首页 Home</a> ·
+    <a href="privacy.html">隐私策略 Privacy</a> ·
+    <a href="https://github.com/daletyler1737/copydash/issues">支持 Support</a>
+  </footer>
+
+</div>
+</body>
+</html>
