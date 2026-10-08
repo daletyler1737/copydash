@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>隐私策略 Privacy Policy — 妙复制大师 CopyDash</title>
+<style>
+:root{--fg:#1c1c1e;--muted:#6b6b70;--line:#e3e3e6;--accent:#3b6ef5;--bg:#fff}
+@media (prefers-color-scheme:dark){:root{--fg:#f2f2f4;--muted:#a0a0a8;--line:#313136;--bg:#17171a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.75 -apple-system,"Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+main{max-width:780px;margin:0 auto;padding:48px 20px 80px}
+h1{font-size:28px;margin:0 0 6px}
+h2{font-size:20px;margin:40px 0 10px;padding-top:20px;border-top:1px solid var(--line)}
+h3{font-size:16.5px;margin:22px 0 6px}
+.muted{color:var(--muted);font-size:14px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:color-mix(in srgb,var(--fg) 5%,transparent)}
+code{font-family:ui-monospace,Consolas,monospace;font-size:13.5px;background:color-mix(in srgb,var(--fg) 7%,transparent);padding:1px 5px;border-radius:4px;word-break:break-all}
+a{color:var(--accent)}
+footer{margin-top:44px;color:var(--muted);font-size:13.5px}
+</style>
+</head>
+<body>
+<main>
+<h1>隐私策略 / Privacy Policy</h1>
+<p class="muted">
+应用名称 App：妙复制大师（CopyDash）<br>
+发布者 Publisher：dale003<br>
+生效日期 / 最后更新 Effective date / Last updated：2026-10-08
+</p>
+
+<h2>中文</h2>
+<h3>一句话概括</h3>
+<p>妙复制大师是一个<b>完全离线的本地复制工具</b>：它不联网、不收集、不上传任何数据。你的文件只在你自己的电脑上从一个位置搬到另一个位置。</p>
+
+<h3>1. 我们收集哪些信息</h3>
+<p><b>不收集任何信息。</b>本应用没有任何联网功能（不含网络请求、统计上报、崩溃上报、广告或分析 SDK），因此不存在向开发者或任何第三方传输数据的行为。</p>
+
+<h3>2. 本应用在你的电脑上写入了什么</h3>
+<table>
+<tr><th>位置</th><th>内容</th><th>用途</th></tr>
+<tr><td><code>HKEY_CURRENT_USER\Software\CopyDash</code></td><td>语言、引擎、皮肤、主题等界面偏好</td><td>记住你的设置</td></tr>
+<tr><td><code>HKEY_CURRENT_USER\Software\Classes\...\shell\CopyDash.*</code></td><td>「复制到…／移动到…」右键菜单注册项</td><td>右键菜单功能（卸载时删除）</td></tr>
+<tr><td><code>...\CurrentVersion\Uninstall\CopyDash</code></td><td>卸载项信息</td><td>可在“设置→应用”中卸载</td></tr>
+<tr><td>系统临时目录下的日志文件（如 <code>dryrun.txt</code>）</td><td>复制失败时的错误细节</td><td>排障；仅保存在本机，不上传</td></tr>
+</table>
+<p>以上内容全部只在本机，随时可通过卸载或手动删除清除。</p>
+
+<h3>3. 本应用会访问什么</h3>
+<ul>
+<li><b>你选择的文件和文件夹</b>：读取源文件、写入目标文件；「移动到…」会在复制完成后删除源文件。除此之外不访问你的任何数据。</li>
+<li><b>磁盘容量信息</b>：用于显示剩余空间和进度预估。</li>
+<li><b>Windows 自带组件 <code>robocopy.exe</code></b>（仅在选用「柔博引擎」时）：它是 Windows 系统自带程序，同样不联网；不需要也可以切换到自研「原生引擎」。</li>
+</ul>
+<p>本应用<b>不需要管理员权限</b>，也不访问网络、摄像头、麦克风、通讯录、位置等任何敏感权限。</p>
+
+<h3>4. 第三方</h3>
+<p>本应用不包含任何第三方 SDK、统计、广告或数据分享组件。开发者不会把你的数据出售或分享给任何人——因为开发者根本拿不到。</p>
+
+<h3>5. 通过 Microsoft Store 购买时</h3>
+<p>如果你在 Microsoft Store 中付费购买本应用，<b>支付由 Microsoft 处理</b>，开发者无法看到你的银行卡号、账单地址等支付信息。开发者只会收到商店提供的汇总销售/下载统计（不含个人身份信息）。这部分数据处理适用 <a href="https://privacy.microsoft.com/privacystatement">Microsoft 隐私声明</a>。</p>
+
+<h3>6. 儿童隐私</h3>
+<p>本应用不面向儿童设计，也不收集任何用户（包括儿童）的个人信息。</p>
+
+<h3>7. 数据删除</h3>
+<ul>
+<li>卸载本应用会删除程序文件、快捷方式、右键菜单注册项和偏好设置。</li>
+<li>日志文件可在临时目录中手动删除。</li>
+<li>本应用没有服务器，因此不存在服务端数据需要删除。</li>
+</ul>
+
+<h3>8. 本策略的变更</h3>
+<p>如果未来版本新增需要联网的功能（例如账号登录或在线激活），我们会在发布前更新本策略，并在应用内或商店页面说明新增的数据处理方式。</p>
+
+<h3>9. 联系方式</h3>
+<p>如有任何隐私相关问题，请通过 <a href="https://github.com/daletyler1737/copydash/issues">支持页面</a> 联系我们。</p>
+
+<h2>English</h2>
+<h3>Summary</h3>
+<p>CopyDash is a <b>fully offline local file-copy tool</b>: it does not connect to the internet, collect, or upload any data. Your files only move from one location to another on your own computer.</p>
+
+<h3>1. Information we collect</h3>
+<p><b>None.</b> The app has no networking code at all (no HTTP requests, telemetry, crash reporting, ads, or analytics SDKs), so no data is ever transmitted to the developer or to any third party.</p>
+
+<h3>2. What the app writes on your computer</h3>
+<table>
+<tr><th>Location</th><th>Content</th><th>Purpose</th></tr>
+<tr><td><code>HKEY_CURRENT_USER\Software\CopyDash</code></td><td>UI preferences (language, engine, skin, theme)</td><td>Remember your settings</td></tr>
+<tr><td><code>HKEY_CURRENT_USER\Software\Classes\...\shell\CopyDash.*</code></td><td>Explorer context-menu entries (“Copy to… / Move to…”)</td><td>Right-click menu (removed on uninstall)</td></tr>
+<tr><td><code>...\CurrentVersion\Uninstall\CopyDash</code></td><td>Uninstall entry</td><td>So the app can be removed from Settings → Apps</td></tr>
+<tr><td>A log file in the system temp folder (e.g. <code>dryrun.txt</code>)</td><td>Error details when a copy fails</td><td>Troubleshooting; stays on your machine, never uploaded</td></tr>
+</table>
+<p>All of the above stays local and can be removed at any time by uninstalling or deleting the files.</p>
+
+<h3>3. What the app accesses</h3>
+<ul>
+<li><b>The files and folders you select</b>: reads sources, writes to the destination; “Move to…” deletes the source after a successful copy. Nothing else on your system is touched.</li>
+<li><b>Disk capacity</b>: to show free space and progress estimates.</li>
+<li><b>Windows' built-in <code>robocopy.exe</code></b> (only when you pick the “RoboEngine” option): a standard Windows component that also does not use the network. You can switch to the built-in “CNMEngine” if you prefer not to use it.</li>
+</ul>
+<p>The app requires <b>no administrator rights</b> and does not touch the network, camera, microphone, contacts, or location.</p>
+
+<h3>4. Third parties</h3>
+<p>No third-party SDKs, analytics, ads, or data-sharing components. The developer cannot sell or share your data — the developer never receives any.</p>
+
+<h3>5. Buying through the Microsoft Store</h3>
+<p>If you purchase the app from the Microsoft Store, <b>payment is handled by Microsoft</b>; the developer cannot see your card number or billing address. The developer only receives aggregate sales/download statistics from the Store, with no personally identifiable information. That processing is covered by the <a href="https://privacy.microsoft.com/privacystatement">Microsoft Privacy Statement</a>.</p>
+
+<h3>6. Children's privacy</h3>
+<p>The app is not directed at children and collects no personal information from anyone, including children.</p>
+
+<h3>7. Data deletion</h3>
+<ul>
+<li>Uninstalling removes program files, shortcuts, context-menu entries, and preferences.</li>
+<li>Log files in the temp folder can be deleted manually.</li>
+<li>The app has no server, so there is no server-side data to delete.</li>
+</ul>
+
+<h3>8. Changes to this policy</h3>
+<p>If a future version adds anything that requires the network (for example sign-in or online activation), this policy will be updated before release, with the new data handling described in the app or on the Store listing.</p>
+
+<h3>9. Contact</h3>
+<p>For any privacy question, contact us through the <a href="https://github.com/daletyler1737/copydash/issues">support page</a>.</p>
+
+<footer>© 2026 dale003 · 妙复制大师 CopyDash · <a href="index.html">支持页面 / Support</a></footer>
+</main>
+</body>
+</html>

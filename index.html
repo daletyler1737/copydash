@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>妙复制大师 CopyDash — 支持 / Support</title>
+<style>
+:root{--fg:#1c1c1e;--muted:#6b6b70;--line:#e3e3e6;--accent:#3b6ef5;--bg:#fff}
+@media (prefers-color-scheme:dark){:root{--fg:#f2f2f4;--muted:#a0a0a8;--line:#313136;--bg:#17171a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+ font:16px/1.7 -apple-system,"Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:48px 20px 80px}
+h1{font-size:30px;margin:0 0 4px}
+h2{font-size:19px;margin:36px 0 10px;padding-top:18px;border-top:1px solid var(--line)}
+h3{font-size:16px;margin:18px 0 6px}
+p,li{color:var(--fg)}
+.muted{color:var(--muted);font-size:14px}
+.en{color:var(--muted);font-size:14.5px}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:color-mix(in srgb,var(--fg) 5%,transparent)}
+code{font-family:ui-monospace,Consolas,monospace;font-size:14px;background:color-mix(in srgb,var(--fg) 7%,transparent);padding:1px 5px;border-radius:4px}
+a{color:var(--accent)}
+hr{border:0;border-top:1px solid var(--line);margin:32px 0}
+footer{margin-top:48px;color:var(--muted);font-size:13.5px}
+</style>
+</head>
+<body>
+<main>
+<h1>妙复制大师 · CopyDash</h1>
+<p class="muted">Windows 高速复制 / 移动工具 · Windows high-speed copy &amp; move tool</p>
+<p>一个 EXE，两套复制引擎。窗口左右两栏摆好源与目标，一键开始；也可以在资源管理器里右键任意文件或文件夹，选「复制到…」或「移动到…」。</p>
+<p class="en">One EXE, two copy engines. Put source and destination in the two panes and go — or right-click any file or folder in Explorer and pick “Copy to…” / “Move to…”.</p>
+
+<h2>功能 / Features</h2>
+<ul>
+<li>双引擎可切换：<b>柔博引擎（RoboEngine）</b> 适合海量小文件、长路径、需要重试的活儿；<b>原生引擎（CNMEngine）</b> 适合大文件与本地快速搬运。</li>
+<li>右键菜单集成：「复制到…／移动到…」，免管理员权限（只写当前用户注册表）。</li>
+<li>复制后校验（哈希比对）、进度与速度显示、失败项明细与重试。</li>
+<li>中英双语界面、深浅色可切换、免安装单文件版与标准安装包两种形态。</li>
+</ul>
+<p class="en">Two switchable engines · Explorer context menu · verify-after-copy (hash compare) · live progress &amp; speed · failure list with retry · Chinese/English UI · light &amp; dark theme · portable single EXE or standard installer.</p>
+
+<h2>系统要求 / System requirements</h2>
+<table>
+<tr><th>项目 / Item</th><th>要求 / Requirement</th></tr>
+<tr><td>操作系统 / OS</td><td>Windows 10 x64 1809 或更高 / Windows 10 x64 1809+ (Windows 11 supported)</td></tr>
+<tr><td>架构 / Architecture</td><td>x64</td></tr>
+<tr><td>权限 / Privileges</td><td>无需管理员权限 / No administrator rights required</td></tr>
+<tr><td>网络 / Network</td><td>完全离线运行，不联网 / Fully offline, no network access</td></tr>
+</table>
+
+<h2>安装 / Installation</h2>
+<ol>
+<li>从 Microsoft Store 安装（上架后此处会给出商店链接）；或使用标准安装包 <code>妙复制大师-CopyDash-Setup.exe</code>，一路「下一步」即可。</li>
+<li>想免安装：直接用便携版 <code>CopyDash.exe</code>，双击就能跑。</li>
+<li>右键菜单在首次运行后自动注册；不需要时可在软件内的设置里关闭，或直接卸载。</li>
+</ol>
+
+<h2>常见问题 / FAQ</h2>
+<h3>复制到一半失败怎么办？ / A copy failed halfway — what now?</h3>
+<p>窗口下方会列出失败的文件和原因，点「重试」即可继续。长路径、被占用的文件、权限不足是最常见的三种原因；「柔博引擎」对这三类情况的处理更稳。</p>
+<h3>卸载后右键菜单还在吗？ / Do the context-menu entries stay after uninstall?</h3>
+<p>卸载会一并清掉右键菜单、快捷方式和偏好设置，不残留。若你用的是便携版（绿色版），右键菜单可在软件内关闭后再删除文件夹。</p>
+<h3>会上传我的文件或使用数据吗？ / Does it upload my files or usage data?</h3>
+<p>不会。本软件完全离线，没有任何联网代码、统计或广告组件。详见 <a href="privacy.html">隐私策略 / Privacy Policy</a>。</p>
+
+<h2>获取支持 / Support</h2>
+<p>遇到问题、想提建议或报告缺陷，请在支持页面提交（会尽快回复）：</p>
+<p><a href="https://github.com/daletyler1737/copydash/issues">github.com/daletyler1737/copydash/issues</a></p>
+<p class="en">Open an issue on the link above, or email the developer. Please include your Windows version, which engine you used, and the failure message if any.</p>
+<p>反馈时若能附上 Windows 版本、所用引擎和报错信息，会更快定位。</p>
+
+<hr>
+<p class="muted"><a href="privacy.html">隐私策略 / Privacy Policy</a> · 发布者 Publisher: dale003 · 应用名称 App: 妙复制大师（CopyDash）</p>
+<footer>© 2026 dale003. Microsoft, Windows, Microsoft Store are trademarks of Microsoft Corporation.</footer>
+</main>
+</body>
+</html>
