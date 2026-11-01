@@ -2,14 +2,14 @@
 
 这个仓库只干两件事：给 Microsoft Store 上架提供**支持网站 URL** 和**隐私策略 URL**。
 
-- 支持页：https://daletyler1737.github.io/copydash/
-- 隐私策略：https://daletyler1737.github.io/copydash/privacy.html
+- 支持页：https://copydash.pages.dev/
+- 隐私策略：https://copydash.pages.dev/privacy.html
 
 ## 改成什么用在哪里（Partner Center「属性」页）
 
 | Partner Center 字段 | 填什么 |
 |---|---|
-| 网站 | `https://daletyler1737.github.io/copydash/` |
+| 网站 | `https://copydash.pages.dev/` |
 | 支持部门联系信息 | `https://github.com/daletyler1737/copydash/issues`（也接受邮箱） |
 | 隐私策略 | 选「提供隐私策略文本」，贴项目仓库 `docs/隐私策略-粘贴用.txt` 全文；或改选「提供 URL」填上表的隐私策略链接 |
 
