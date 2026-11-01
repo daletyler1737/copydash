@@ -55,9 +55,18 @@ Windows 10/11 file copy &amp; move utility — dual engine, right-click “Copy 
   <span style="color:var(--muted);font-size:14px">信用卡 / Apple Pay / Google Pay</span>
 </div>
 <!-- 沙盒测试入口：仅当 URL 带 ?sandbox 时显示，正常访客与审核员看不到 -->
-<div id="stripe-sandbox" hidden class="row" style="margin-top:8px;border:1px dashed #b45309;border-radius:8px;padding:10px 14px">
-  <a class="btn" href="https://buy.stripe.com/test_7sY9AM3nD0QqdM0egK0Fi01">Stripe 沙盒测试 — ¥35（支付宝/微信/卡）</a>
-  <a class="btn" style="margin-left:8px" href="https://buy.stripe.com/test_9B614gaQ59mWeQ40pU0Fi00">$4.99 国际版</a>
+<div id="stripe-sandbox" hidden style="margin-top:8px;border:1px dashed #b45309;border-radius:8px;padding:10px 14px">
+  <div style="font-size:14px;margin-bottom:6px">Stripe 沙盒测试 · 按市场自动出当地支付方式（共 30 种已开：支付宝 / 微信 / 卡 / 韩国钱包 / 欧洲 iDEAL 等）</div>
+  <div class="row" style="gap:8px;flex-wrap:wrap">
+    <a class="btn" href="https://buy.stripe.com/test_4gM7sE1fvar0cHW6Oi0Fi03">¥35 中国大陆（支付宝/微信/卡）</a>
+    <a class="btn" href="https://buy.stripe.com/test_4gM8wIcYd8iS0ZegoS0Fi08">HK$4.99 香港（支付宝/微信/卡）</a>
+    <a class="btn" href="https://buy.stripe.com/test_bJe7sEcYd7eO5fu0pU0Fi04">$4.99 国际（卡/支付宝）</a>
+  </div>
+  <div class="row" style="gap:8px;flex-wrap:wrap;margin-top:6px">
+    <a class="btn" href="https://buy.stripe.com/test_6oUcMY8HXbv48rGfkO0Fi05">€4.99 欧元区（iDEAL/Bancontact/EPS/P24/SEPA）</a>
+    <a class="btn" href="https://buy.stripe.com/test_cNibIU3nDdDc0Zeb4y0Fi06">£4.99 英国（卡/Bacs/Pay by Bank）</a>
+    <a class="btn" href="https://buy.stripe.com/test_4gM14gbU92Yy8rGgoS0Fi07">₩6900 韩国（KakaoPay/NaverPay/SamsungPay）</a>
+  </div>
   <span style="color:var(--muted);font-size:14px">测试卡 4242 4242 4242 4242 · 任意未来有效期 · 任意 CVC</span>
 </div>
 <script>if(location.search.indexOf('sandbox')>=0)document.getElementById('stripe-sandbox').hidden=false;</script>
