@@ -50,18 +50,10 @@ Windows 10/11 file copy &amp; move utility — dual engine, right-click “Copy 
 
 <h2>一、购买 / How to buy</h2>
 <p>一次性买断 <b>$4.99</b>（中国大陆约 <b>¥35</b>）：一次付费，终身使用，含全部功能与后续更新 —— 没有订阅、没有二次收费、没有功能限制。</p>
-<div class="row">
-  <a class="btn" href="https://creem.io/payment/prod_3EvcM19WPIq1UG42Tte51A">立即购买 Buy now — $4.99</a>
-  <span style="color:var(--muted);font-size:14px">信用卡 / Apple Pay / Google Pay</span>
-</div>
-<!-- 沙盒测试入口：仅当 URL 带 ?sandbox 时显示，正常访客与审核员看不到 -->
-<div id="stripe-sandbox" hidden style="margin-top:8px;border:1px dashed #b45309;border-radius:8px;padding:10px 14px">
-  <div style="font-size:14px;margin-bottom:6px">Stripe 沙盒测试 · 按市场自动出当地支付方式（共 30 种已开：支付宝 / 微信 / 卡 / 韩国钱包 / 欧洲 iDEAL 等）</div>
-  <div class="row" style="gap:8px;flex-wrap:wrap">
-    <a class="btn" href="https://buy.stripe.com/test_28E28kcYd42CbDSegK0Fi0a">¥35 中国大陆（支付宝/微信/卡）</a>
-    <a class="btn" href="https://buy.stripe.com/test_14A3cof6l1UufU82y20Fi0b">HK$4.99 香港（支付宝/微信/卡）</a>
-    <a class="btn" href="https://buy.stripe.com/test_7sY9AMgap42CfU81tY0Fi0c">$4.99 国际（卡 / Apple Pay / Google Pay / Link）</a>
-  </div>
+<div class="row" style="gap:8px;flex-wrap:wrap">
+  <!-- ponytail: 上线只改这 6 个链接: test_ → live 链接(其余不用动) -->
+  <a class="btn" href="https://buy.stripe.com/test_28E28kcYd42CbDSegK0Fi0a">¥35 中国大陆 · 支付宝 / 微信 / 银行卡</a>
+  <a class="btn" href="https://buy.stripe.com/test_14A3cof6l1UufU82y20Fi0b">HK$4.99 香港 · 支付宝 / 银行卡</a>
   <div class="row" style="gap:8px;flex-wrap:wrap;margin-top:6px">
     <a class="btn" href="https://buy.stripe.com/test_6oUcMY8HXbv48rGfkO0Fi05">€4.99 欧元区（iDEAL/Bancontact/EPS/P24/SEPA）</a>
     <a class="btn" href="https://buy.stripe.com/test_cNibIU3nDdDc0Zeb4y0Fi06">£4.99 英国（卡/Bacs/Pay by Bank）</a>
@@ -69,11 +61,10 @@ Windows 10/11 file copy &amp; move utility — dual engine, right-click “Copy 
   </div>
   <span style="color:var(--muted);font-size:14px">测试卡 4242 4242 4242 4242 · 任意未来有效期 · 任意 CVC</span>
 </div>
-<script>if(location.search.indexOf('sandbox')>=0)document.getElementById('stripe-sandbox').hidden=false;</script>
-<p>付款完成后你会收到 Creem 的订单确认邮件；<b>授权码与安装包下载链接会在 24 小时内发送到你下单时填写的邮箱</b>。若遗失授权码，可凭订单号联系支持补发。</p>
-<p><b>中国大陆用户</b>：如需使用支付宝或微信付款，请发邮件至 <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a> 申请购买。我们会回复付款方式，收到款项后同样在 24 小时内发送授权码与下载链接。</p>
-<p style="color:var(--muted);font-size:14px">Buy now with card, Apple Pay or Google Pay — <b>$4.99</b> one-time. Your order confirmation comes from Creem; the license key and installer download link are emailed to the address you enter at checkout <b>within 24 hours</b>. Lost your key? Contact support with your order number.<br>
-Customers in mainland China: email <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a> to pay by Alipay or WeChat Pay — delivery is the same, within 24 hours.</p>
+<p>付款完成后你会收到 <b>Stripe</b> 的订单确认邮件；<b>授权码与安装包下载链接会在 24 小时内发送到你下单时填写的邮箱</b>。若遗失授权码，可凭订单号联系支持补发。</p>
+<p><b>中国大陆用户</b>：可直接使用<b>支付宝</b>或<b>微信支付</b>下单，无需其他步骤；同样在 24 小时内发送授权码与下载链接。</p>
+<p style="color:var(--muted);font-size:14px">Pay by card, Apple Pay, Google Pay, Alipay or WeChat Pay — <b>$4.99 / ¥35</b> one-time, processed by <b>Stripe</b>. The available methods are shown automatically for your market. Your order confirmation comes from Stripe; the license key and installer download link are emailed to the address you enter at checkout <b>within 24 hours</b>. Lost your key? Contact support with your order number.<br>
+Customers in mainland China can check out directly with Alipay or WeChat Pay — delivery is the same, within 24 hours.</p>
 
 <h2>二、安装包信息 Package info</h2>
 <table>
