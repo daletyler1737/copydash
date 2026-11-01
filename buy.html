@@ -54,6 +54,12 @@ Windows 10/11 file copy &amp; move utility — dual engine, right-click “Copy 
   <a class="btn" href="https://creem.io/payment/prod_3EvcM19WPIq1UG42Tte51A">立即购买 Buy now — $4.99</a>
   <span style="color:var(--muted);font-size:14px">信用卡 / Apple Pay / Google Pay</span>
 </div>
+<!-- 沙盒测试入口：仅当 URL 带 ?sandbox 时显示，正常访客与审核员看不到 -->
+<div id="stripe-sandbox" hidden class="row" style="margin-top:8px;border:1px dashed #b45309;border-radius:8px;padding:10px 14px">
+  <a class="btn" href="https://buy.stripe.com/test_9B614gaQ59mWeQ40pU0Fi00">Stripe 沙盒测试 — $4.99</a>
+  <span style="color:var(--muted);font-size:14px">测试卡 4242 4242 4242 4242 · 任意未来有效期 · 任意 CVC</span>
+</div>
+<script>if(location.search.indexOf('sandbox')>=0)document.getElementById('stripe-sandbox').hidden=false;</script>
 <p>付款完成后你会收到 Creem 的订单确认邮件；<b>授权码与安装包下载链接会在 24 小时内发送到你下单时填写的邮箱</b>。若遗失授权码，可凭订单号联系支持补发。</p>
 <p><b>中国大陆用户</b>：如需使用支付宝或微信付款，请发邮件至 <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a> 申请购买。我们会回复付款方式，收到款项后同样在 24 小时内发送授权码与下载链接。</p>
 <p style="color:var(--muted);font-size:14px">Buy now with card, Apple Pay or Google Pay — <b>$4.99</b> one-time. Your order confirmation comes from Creem; the license key and installer download link are emailed to the address you enter at checkout <b>within 24 hours</b>. Lost your key? Contact support with your order number.<br>
