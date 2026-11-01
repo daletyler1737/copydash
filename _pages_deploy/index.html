@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>妙复制大师 CopyDash · Windows 复制与移动工具，两套引擎一个 EXE</title>
+<meta name="description" content="Windows 高速复制与移动工具。柔博引擎（robocopy）与原生引擎（CNMEngine）随时切换，支持右键「复制到 / 移动到」、复制后哈希校验、失败清单与重试。免管理员权限，完全离线。">
+<style>
+:root{
+  --bg:#ffffff; --panel:#f7f7f9; --panel-2:#f2f2f5; --fg:#17171a; --muted:#61616b;
+  --line:#e6e6ea; --line-strong:#d8d8de; --accent:#5B67CA; --accent-fg:#ffffff;
+  --accent-soft:#eef0fb; --code-bg:#17171c; --code-fg:#e8e8ee;
+  --radius-card:12px; --radius-btn:9px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#101014; --panel:#17171c; --panel-2:#1c1c22; --fg:#f0f0f3; --muted:#9a9aa4;
+    --line:#26262e; --line-strong:#33333d; --accent:#8f97e8; --accent-fg:#111116;
+    --accent-soft:#1d1f2e; --code-bg:#0b0b0f; --code-fg:#e8e8ee;
+  }
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.72 -apple-system,"Segoe UI Variable Display","Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
+h1{font-size:44px;line-height:1.16;letter-spacing:-.02em;margin:0 0 16px;font-weight:700}
+h2{font-size:27px;line-height:1.3;letter-spacing:-.01em;margin:0 0 10px;font-weight:700}
+h3{font-size:17px;margin:0 0 6px;font-weight:600}
+p{margin:0 0 14px}
+.lede{font-size:18px;color:var(--muted);max-width:34em}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+@media (max-width:768px){
+  h1{font-size:31px}
+  h2{font-size:22px}
+  .lede{font-size:16.5px}
+}
+
+/* 导航：桌面单行，高度 64px */
+.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
+.nav .wrap{height:64px;display:flex;align-items:center;gap:26px}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:-.01em;text-decoration:none;color:var(--fg)}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--accent);color:var(--accent-fg);
+  display:grid;place-items:center;font-size:14px;font-weight:700}
+.nav nav{display:flex;gap:22px;font-size:15px}
+.nav nav a{color:var(--muted);text-decoration:none}
+.nav nav a:hover{color:var(--fg)}
+.nav .cta{margin-left:auto}
+@media (max-width:768px){.nav nav{display:none}}
+
+/* 按钮：全站同一种圆角与配色 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px 20px;border-radius:var(--radius-btn);background:var(--accent);color:var(--accent-fg);
+  border:1px solid transparent;text-decoration:none;font-weight:600;font-size:15.5px;font-family:inherit;
+  cursor:pointer;white-space:nowrap;transition:transform .12s ease,box-shadow .12s ease}
+.btn:hover{box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 28%,transparent)}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line-strong)}
+.btn.ghost:hover{border-color:var(--accent);color:var(--accent);box-shadow:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+section{padding:74px 0;border-top:1px solid var(--line)}
+@media (max-width:768px){section{padding:44px 0}}
+.sect-head{max-width:44em;margin-bottom:34px}
+
+/* 首屏：左文右图 */
+.hero{padding:64px 0 58px;border-top:0}
+.hero .wrap{display:grid;grid-template-columns:1fr 1.12fr;gap:52px;align-items:center}
+.kicker{font-size:13px;letter-spacing:.06em;color:var(--muted);margin:0 0 14px}
+.hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 0}
+.shot{margin:0}
+.shot img{display:block;width:100%;height:auto;border-radius:var(--radius-card);
+  border:1px solid var(--line-strong);box-shadow:0 20px 46px -22px rgba(20,20,40,.35)}
+.shot figcaption{font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;gap:30px}
+  .hero{padding:38px 0 40px}
+}
+
+/* 两套引擎：左右并联，视觉上区分 */
+.engines{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.engine{border-radius:var(--radius-card);padding:24px 24px 20px;border:1px solid var(--line)}
+.engine.tinted{background:var(--panel);border-color:transparent}
+.engine h3{font-size:18px;margin-bottom:2px}
+.engine .en{font-size:13px;color:var(--muted);margin-bottom:12px;letter-spacing:.01em}
+.engine ul{margin:0;padding-left:20px}
+.engine li{margin:6px 0}
+@media (max-width:768px){.engines{grid-template-columns:1fr}}
+
+/* 功能：不等分格子 */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.cell{border:1px solid var(--line);border-radius:var(--radius-card);padding:22px}
+.cell.wide{grid-column:span 2}
+.cell.dark{background:var(--code-bg);color:var(--code-fg);border-color:transparent}
+.cell.dark h3{color:#fff}
+.cell.dark p{color:#a8a8b6}
+.cell.soft{background:var(--accent-soft);border-color:transparent}
+.cell p{margin:0;font-size:15px;color:var(--muted)}
+.cell h3 + p{margin-top:4px}
+pre{margin:12px 0 0;padding:14px 16px;border-radius:var(--radius-btn);overflow-x:auto;
+  background:var(--code-bg);color:var(--code-fg);font:13px/1.65 ui-monospace,Consolas,"Cascadia Mono",monospace}
+code{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace;font-size:.92em}
+p code,li code,td code,th code{background:var(--panel-2);padding:1px 6px;border-radius:5px}
+.cell.dark code{background:#26262e;color:#fff}
+@media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.cell.wide{grid-column:span 2}}
+@media (max-width:640px){.bento{grid-template-columns:1fr}.cell.wide{grid-column:span 1}}
+
+/* 规格表 */
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;width:34%}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+
+/* 价格 */
+.buy{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;
+  border:1px solid var(--line);border-radius:var(--radius-card);padding:28px}
+.price{font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+.price small{font-size:16px;font-weight:500;color:var(--muted);letter-spacing:0}
+.buy .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.buy ul{margin:0;padding-left:20px;color:var(--muted);font-size:15px}
+.buy ul li{margin:5px 0}
+@media (max-width:768px){.buy{grid-template-columns:1fr;gap:18px;padding:22px}.price{font-size:34px}}
+
+/* 常见问题 */
+details{border-bottom:1px solid var(--line);padding:16px 0}
+details:first-of-type{border-top:1px solid var(--line)}
+summary{cursor:pointer;font-weight:600;font-size:16.5px;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"＋";float:right;color:var(--muted);font-weight:400}
+details[open] summary::after{content:"－"}
+details p{margin:10px 0 2px;color:var(--muted);max-width:62em}
+
+footer{border-top:1px solid var(--line);padding:34px 0 54px;font-size:14px;color:var(--muted)}
+footer a{color:var(--muted)}
+footer .row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="mark">复</span>妙复制大师</a>
+    <nav>
+      <a href="#engines">两套引擎</a>
+      <a href="#features">功能</a>
+      <a href="#cli">命令行</a>
+      <a href="#price">价格</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <a class="btn cta" href="buy.html">购买 ¥35</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <p class="kicker">Windows 10 / 11 x64 · 完全离线</p>
+      <h1>把几十 GB 的文件安稳搬完</h1>
+      <p class="lede">复制、移动、校验。一个 500 KB 的 EXE，两套复制引擎，右键菜单直接调用，不需要管理员权限。</p>
+      <div class="actions">
+        <a class="btn" href="buy.html">购买 ¥35</a>
+        <a class="btn ghost" href="#engines">看看引擎差别</a>
+      </div>
+    </div>
+    <figure class="shot">
+      <img src="img/app-main.png" width="1060" height="660" decoding="async"
+           alt="妙复制大师主界面：左栏是源目录的文件列表，右栏是目标目录，中间是复制与移动按钮，底部显示进度与失败清单">
+      <figcaption>左栏选源、右栏选目标，中间一键复制或移动；底部是实时进度与失败清单。</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="engines">
+  <div class="wrap">
+    <div class="sect-head">
+      <h2>两套引擎，看活儿挑</h2>
+      <p class="lede">同一个界面，底层可以换。海量小文件和长路径交给柔博引擎，大文件与本地搬运交给原生引擎，界面上随时切换。</p>
+    </div>
+    <div class="engines">
+      <div class="engine tinted">
+        <h3>柔博引擎</h3>
+        <p class="en">RoboEngine · 调用 Windows 自带 robocopy</p>
+        <ul>
+          <li>几十万个文件的目录树能扛住</li>
+          <li>超长路径、被占用的文件自动重试</li>
+          <li>多线程与重试次数可在命令行里细调</li>
+          <li>行为与系统自带工具一致，可预期</li>
+        </ul>
+      </div>
+      <div class="engine">
+        <h3>原生引擎</h3>
+        <p class="en">CNMEngine · 自研实现，不调用系统 robocopy</p>
+        <ul>
+          <li>大文件与本地快速搬运更快</li>
+          <li>不依赖系统 robocopy 组件</li>
+          <li>进度、速度、剩余时间都由自己算</li>
+          <li>系统里的 robocopy 被禁用或删掉时照常工作</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="wrap">
+    <div class="sect-head">
+      <h2>日常真正用到的几件事</h2>
+      <p class="lede">这里不是功能清单，是这套工具替你处理掉的那些麻烦。</p>
+    </div>
+    <div class="bento">
+      <div class="cell wide">
+        <h3>资源管理器右键直接调用</h3>
+        <p>选中任意文件或文件夹，右键选「复制到…」或「移动到…」。四种组合覆盖两套引擎与复制、剪切两种情况。只写当前用户的注册表项，不需要管理员权限，卸载时一并清除。</p>
+      </div>
+      <div class="cell soft">
+        <h3>复制后校验</h3>
+        <p>对复制结果做哈希比对，结果不一致的文件会单独列出，不会悄悄混进目标目录。</p>
+      </div>
+      <div class="cell">
+        <h3>进度、速度、失败清单</h3>
+        <p>每个文件的状态、实时速度与剩余时间都在窗口里；失败的逐个列出原因，可以只重试失败项。</p>
+      </div>
+      <div class="cell">
+        <h3>中英双语与深浅色</h3>
+        <p>界面语言与配色都能切换，跟随你的习惯，不需要重装。</p>
+      </div>
+      <div class="cell">
+        <h3>两种形态随你放</h3>
+        <p>标准安装包一路「下一步」；或者直接用便携版单文件，放 U 盘里也能跑。</p>
+      </div>
+      <div class="cell dark">
+        <h3>命令行也在</h3>
+        <p>同一个 EXE，带参数就能批处理，方便挂计划任务。</p>
+        <pre><code>CopyDash.exe copy --dest "F:\备份" "D:\照片" "D:\视频"
+CopyDash.exe move --engine:cnm --dest "F:\归档" "D:\下载"
+CopyDash.exe copy --verify --dest "F:\备份" "D:\照片"</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cli">
+  <div class="wrap">
+    <div class="sect-head">
+      <h2>不打开界面也能跑</h2>
+      <p class="lede">源用位置参数，目标用 <code>--dest</code>，两条命令就能配好一个每日备份任务。</p>
+    </div>
+    <table>
+      <tbody>
+        <tr><th><code>copy</code> 或 <code>move</code></th><td>动作，二选一，默认是 copy</td></tr>
+        <tr><th><code>--dest 目录</code></th><td>目标目录，其余位置参数都当作源</td></tr>
+        <tr><th><code>--engine:cnm</code></th><td>切到原生引擎，默认走柔博引擎</td></tr>
+        <tr><th><code>--verify</code></th><td>复制后做哈希校验</td></tr>
+        <tr><th><code>--dryrun</code></th><td>只演练不落盘，先看清会动哪些文件</td></tr>
+        <tr><th><code>--ui</code></th><td>带界面跑，边跑边看进度</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="price">
+  <div class="wrap">
+    <div class="buy">
+      <div>
+        <div class="price">¥35 <small>／ $4.99，一次性买断</small></div>
+        <p class="muted small" style="margin-top:8px">一个订单编号对应一台电脑。换机时用同一个编号在新机器上重新激活即可，旧机自动失效。</p>
+        <div class="actions">
+          <a class="btn" href="buy.html">购买 ¥35</a>
+          <a class="btn ghost" href="https://github.com/daletyler1737/copydash/releases/latest">下载试用</a>
+        </div>
+      </div>
+      <ul>
+        <li>终身使用，免费更新</li>
+        <li>无订阅、无广告、无统计</li>
+        <li>银行卡、支付宝、微信、Apple Pay、Google Pay、Link</li>
+        <li>海外价格 $4.99，按所在市场自动切换</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sect-head">
+      <h2>运行环境</h2>
+    </div>
+    <table>
+      <tbody>
+        <tr><th>操作系统</th><td>Windows 10 x64 1809 或更高，支持 Windows 11</td></tr>
+        <tr><th>架构</th><td>x64</td></tr>
+        <tr><th>权限</th><td>不需要管理员权限</td></tr>
+        <tr><th>网络</th><td>完全离线运行，程序里没有联网代码</td></tr>
+        <tr><th>体积</th><td>便携版单文件约 500 KB</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="sect-head">
+      <h2>常见问题</h2>
+    </div>
+
+    <details>
+      <summary>复制到一半失败了怎么办？</summary>
+      <p>失败的文件会逐个列出原因，点重试就只跑失败的那些。长路径、文件被别的程序占用、权限不足是最常见的三类原因，柔博引擎对这三类情况处理得更稳。</p>
+    </details>
+    <details>
+      <summary>和系统自带的 robocopy 是什么关系？</summary>
+      <p>柔博引擎就是把 robocopy 包上一层好用的界面与进度展示，重试与线程策略沿用 robocopy 本来的行为。原生引擎是另一套实现，不走 robocopy，界面上随时可以换。</p>
+    </details>
+    <details>
+      <summary>会上传我的文件或使用数据吗？</summary>
+      <p>不会。程序里没有任何联网代码，没有统计组件，也没有广告。详见<a href="privacy.html">隐私策略</a>。</p>
+    </details>
+    <details>
+      <summary>卸载后右键菜单会残留吗？</summary>
+      <p>不会。卸载会一并清掉右键菜单、快捷方式与偏好设置。便携版则在软件里关掉右键菜单后直接删掉文件夹即可。</p>
+    </details>
+    <details>
+      <summary>换电脑了，授权怎么办？</summary>
+      <p>同一份授权限一台设备。在新电脑上打开「授权与激活」，填同一个订单编号重新激活，旧电脑的授权会自动失效。付款完成后浏览器会跳到一个页面显示你的订单编号，把它存下来即可。</p>
+    </details>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <a href="buy.html">购买与下载</a>
+      <a href="privacy.html">隐私策略</a>
+      <a href="terms.html">服务条款</a>
+      <a href="exit-codes.html">安装程序退出代码</a>
+      <a href="https://github.com/daletyler1737/copydash">GitHub</a>
+      <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a>
+    </div>
+    <p>遇到问题请附上 Windows 版本、所用引擎和报错信息，会更快定位。</p>
+    <p>© 2026 dale003 · 应用名称：妙复制大师（CopyDash）。Microsoft 与 Windows 是 Microsoft Corporation 的商标。</p>
+  </div>
+</footer>
+
+</body>
+</html>
