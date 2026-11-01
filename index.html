@@ -4,140 +4,181 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>妙复制大师 CopyDash · Windows 复制与移动工具，两套引擎一个 EXE</title>
-<meta name="description" content="Windows 高速复制与移动工具。柔博引擎（robocopy）与原生引擎（CNMEngine）随时切换，支持右键「复制到 / 移动到」、复制后哈希校验、失败清单与重试。免管理员权限，完全离线。">
+<meta name="description" content="Windows 高速复制与移动工具。柔博引擎（robocopy）与原生引擎（CNMEngine）随时切换，右键「复制到 / 移动到」、复制后哈希校验、失败清单与重试。免管理员权限，完全离线，¥35 一次性买断。">
 <style>
 :root{
-  --bg:#ffffff; --panel:#f7f7f9; --panel-2:#f2f2f5; --fg:#17171a; --muted:#61616b;
-  --line:#e6e6ea; --line-strong:#d8d8de; --accent:#5B67CA; --accent-fg:#ffffff;
-  --accent-soft:#eef0fb; --code-bg:#17171c; --code-fg:#e8e8ee;
-  --radius-card:12px; --radius-btn:9px;
+  --bg:#ffffff; --band:#f8f8fb; --card:#ffffff; --fg:#15151a; --muted:#5f5f6b;
+  --line:#e7e7ec; --line-strong:#d7d7de;
+  --accent:#5B67CA; --accent-2:#8A5CC8; --accent-fg:#fff; --accent-soft:#eff0fb;
+  --code-bg:#16161b; --code-fg:#e9e9f0;
+  --r-card:14px; --r-btn:10px;
+  --shadow:0 1px 2px rgba(20,20,40,.04), 0 12px 30px -18px rgba(20,20,40,.28);
 }
 @media (prefers-color-scheme:dark){
   :root{
-    --bg:#101014; --panel:#17171c; --panel-2:#1c1c22; --fg:#f0f0f3; --muted:#9a9aa4;
-    --line:#26262e; --line-strong:#33333d; --accent:#8f97e8; --accent-fg:#111116;
-    --accent-soft:#1d1f2e; --code-bg:#0b0b0f; --code-fg:#e8e8ee;
+    --bg:#0e0e12; --band:#141419; --card:#16161c; --fg:#f1f1f5; --muted:#9a9aa6;
+    --line:#26262f; --line-strong:#34343f;
+    --accent:#8f97e8; --accent-2:#b18ff0; --accent-fg:#0e0e12; --accent-soft:#1c1d2b;
+    --code-bg:#0a0a0e; --code-fg:#e9e9f0;
+    --shadow:0 1px 2px rgba(0,0,0,.5), 0 18px 40px -22px rgba(0,0,0,.8);
   }
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--bg);color:var(--fg);
-  font:16px/1.72 -apple-system,"Segoe UI Variable Display","Segoe UI","Microsoft YaHei",system-ui,sans-serif;
+  font:16px/1.75 -apple-system,"Segoe UI Variable Display","Segoe UI","Microsoft YaHei",system-ui,sans-serif;
   -webkit-font-smoothing:antialiased}
 a{color:var(--accent)}
-.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
-h1{font-size:44px;line-height:1.16;letter-spacing:-.02em;margin:0 0 16px;font-weight:700}
-h2{font-size:27px;line-height:1.3;letter-spacing:-.01em;margin:0 0 10px;font-weight:700}
-h3{font-size:17px;margin:0 0 6px;font-weight:600}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+h1,h2,h3{letter-spacing:-.02em}
+h1{font-size:52px;line-height:1.1;margin:0 0 18px;font-weight:700}
+h2{font-size:30px;line-height:1.25;margin:0 0 12px;font-weight:700}
+h3{font-size:17.5px;margin:0 0 6px;font-weight:600;letter-spacing:-.01em}
 p{margin:0 0 14px}
-.lede{font-size:18px;color:var(--muted);max-width:34em}
+.lede{font-size:18.5px;color:var(--muted);max-width:36em}
 .muted{color:var(--muted)}
 .small{font-size:14px}
-@media (max-width:768px){
-  h1{font-size:31px}
-  h2{font-size:22px}
-  .lede{font-size:16.5px}
+section{padding:82px 0}
+.band{background:var(--band)}
+.sect-head{max-width:46em;margin-bottom:38px}
+@media (max-width:820px){
+  h1{font-size:33px} h2{font-size:23px} .lede{font-size:16.5px}
+  section{padding:50px 0}
 }
 
-/* 导航：桌面单行，高度 64px */
-.nav{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);
-  backdrop-filter:saturate(160%) blur(10px);border-bottom:1px solid var(--line)}
-.nav .wrap{height:64px;display:flex;align-items:center;gap:26px}
-.brand{display:flex;align-items:center;gap:9px;font-weight:700;letter-spacing:-.01em;text-decoration:none;color:var(--fg)}
-.mark{width:26px;height:26px;border-radius:7px;background:var(--accent);color:var(--accent-fg);
-  display:grid;place-items:center;font-size:14px;font-weight:700}
-.nav nav{display:flex;gap:22px;font-size:15px}
+/* 顶部导航 */
+.nav{position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line);
+  background:color-mix(in srgb,var(--bg) 86%,transparent);backdrop-filter:saturate(180%) blur(12px)}
+.nav .wrap{height:66px;display:flex;align-items:center;gap:28px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;letter-spacing:-.01em;
+  text-decoration:none;color:var(--fg);font-size:16.5px}
+.mark{width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-size:14px;
+  font-weight:700;color:#fff;background:linear-gradient(140deg,var(--accent),var(--accent-2))}
+.nav nav{display:flex;gap:24px;font-size:15px}
 .nav nav a{color:var(--muted);text-decoration:none}
 .nav nav a:hover{color:var(--fg)}
 .nav .cta{margin-left:auto}
-@media (max-width:768px){.nav nav{display:none}}
+@media (max-width:820px){.nav nav{display:none}}
 
-/* 按钮：全站同一种圆角与配色 */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  padding:11px 20px;border-radius:var(--radius-btn);background:var(--accent);color:var(--accent-fg);
-  border:1px solid transparent;text-decoration:none;font-weight:600;font-size:15.5px;font-family:inherit;
-  cursor:pointer;white-space:nowrap;transition:transform .12s ease,box-shadow .12s ease}
-.btn:hover{box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 28%,transparent)}
-.btn:active{transform:translateY(1px)}
+/* 按钮 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;
+  border-radius:var(--r-btn);font-weight:600;font-size:15.5px;font-family:inherit;text-decoration:none;
+  border:1px solid transparent;background:linear-gradient(140deg,var(--accent),var(--accent-2));
+  color:#fff;cursor:pointer;transition:transform .14s ease,box-shadow .14s ease}
+.btn:hover{transform:translateY(-1px);box-shadow:0 10px 24px -10px color-mix(in srgb,var(--accent) 60%,transparent)}
 .btn.ghost{background:transparent;color:var(--fg);border-color:var(--line-strong)}
 .btn.ghost:hover{border-color:var(--accent);color:var(--accent);box-shadow:none}
-:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
 
-section{padding:74px 0;border-top:1px solid var(--line)}
-@media (max-width:768px){section{padding:44px 0}}
-.sect-head{max-width:44em;margin-bottom:34px}
-
-/* 首屏：左文右图 */
-.hero{padding:64px 0 58px;border-top:0}
-.hero .wrap{display:grid;grid-template-columns:1fr 1.12fr;gap:52px;align-items:center}
-.kicker{font-size:13px;letter-spacing:.06em;color:var(--muted);margin:0 0 14px}
-.hero .actions{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0 0}
+/* 首屏 */
+.hero{position:relative;overflow:hidden;padding:76px 0 70px}
+.hero::before{content:"";position:absolute;inset:-30% 30% 40% -10%;pointer-events:none;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--accent) 20%,transparent),transparent 70%)}
+.hero .wrap{position:relative;display:grid;grid-template-columns:1.02fr 1.08fr;gap:56px;align-items:center}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:5px 13px;border-radius:999px;
+  border:1px solid var(--line-strong);font-size:13px;color:var(--muted);margin-bottom:20px}
+.pill b{color:var(--fg);font-weight:600}
 .shot{margin:0}
-.shot img{display:block;width:100%;height:auto;border-radius:var(--radius-card);
-  border:1px solid var(--line-strong);box-shadow:0 20px 46px -22px rgba(20,20,40,.35)}
-.shot figcaption{font-size:13.5px;color:var(--muted);margin-top:10px;line-height:1.6}
-@media (max-width:900px){
-  .hero .wrap{grid-template-columns:1fr;gap:30px}
-  .hero{padding:38px 0 40px}
+.shot img{display:block;width:100%;height:auto;border-radius:var(--r-card);
+  border:1px solid var(--line-strong);box-shadow:var(--shadow)}
+.shot figcaption{font-size:13.5px;color:var(--muted);margin-top:12px;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 0;
+  padding:18px 0 0;border-top:1px solid var(--line)}
+.stats div{font-size:13.5px;color:var(--muted)}
+.stats b{display:block;font-size:20px;color:var(--fg);letter-spacing:-.01em}
+@media (max-width:960px){
+  .hero .wrap{grid-template-columns:1fr;gap:34px}
+  .hero{padding:46px 0 46px}
+  .stats{grid-template-columns:1fr 1fr}
 }
 
-/* 两套引擎：左右并联，视觉上区分 */
-.engines{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.engine{border-radius:var(--radius-card);padding:24px 24px 20px;border:1px solid var(--line)}
-.engine.tinted{background:var(--panel);border-color:transparent}
-.engine h3{font-size:18px;margin-bottom:2px}
-.engine .en{font-size:13px;color:var(--muted);margin-bottom:12px;letter-spacing:.01em}
-.engine ul{margin:0;padding-left:20px}
-.engine li{margin:6px 0}
-@media (max-width:768px){.engines{grid-template-columns:1fr}}
+/* 场景 */
+.scenes{display:grid;grid-template-columns:1.25fr 1fr;gap:20px}
+.scene{border:1px solid var(--line);border-radius:var(--r-card);padding:24px;background:var(--card)}
+.scene .n{font-size:13px;color:var(--accent);font-weight:700;letter-spacing:.06em}
+.scene p{margin:4px 0 0;color:var(--muted);font-size:15px}
+.scene.tall{grid-row:span 2}
+@media (max-width:820px){.scenes{grid-template-columns:1fr}.scene.tall{grid-row:auto}}
 
-/* 功能：不等分格子 */
-.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.cell{border:1px solid var(--line);border-radius:var(--radius-card);padding:22px}
+/* 对比表 */
+.cmp{width:100%;border-collapse:collapse;font-size:15.5px}
+.cmp th,.cmp td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.cmp thead th{font-size:14px;color:var(--muted);font-weight:600}
+.cmp thead th:last-child{color:var(--accent)}
+.cmp td:first-child{color:var(--muted);width:30%}
+.cmp tbody tr:last-child td{border-bottom:0}
+.cmp tbody tr:hover{background:color-mix(in srgb,var(--accent) 4%,transparent)}
+
+/* 引擎 */
+.engines{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.engine{border-radius:var(--r-card);padding:28px}
+.engine.a{background:var(--accent-soft);border:1px solid transparent}
+.engine.b{background:var(--card);border:1px solid var(--line)}
+.engine .tag{display:inline-block;font-size:12.5px;padding:3px 10px;border-radius:999px;
+  background:var(--bg);border:1px solid var(--line-strong);color:var(--muted);margin-bottom:14px}
+.engine h3{font-size:20px;margin-bottom:2px}
+.engine .en{font-size:13px;color:var(--muted);margin-bottom:16px}
+.engine ul{margin:0;padding-left:20px;font-size:15.5px}
+.engine li{margin:7px 0}
+@media (max-width:820px){.engines{grid-template-columns:1fr}}
+
+/* 功能 */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.cell{border:1px solid var(--line);border-radius:var(--r-card);padding:24px;background:var(--card);
+  transition:border-color .15s ease,transform .15s ease}
+.cell:hover{border-color:var(--line-strong);transform:translateY(-2px)}
 .cell.wide{grid-column:span 2}
-.cell.dark{background:var(--code-bg);color:var(--code-fg);border-color:transparent}
-.cell.dark h3{color:#fff}
-.cell.dark p{color:#a8a8b6}
-.cell.soft{background:var(--accent-soft);border-color:transparent}
 .cell p{margin:0;font-size:15px;color:var(--muted)}
-.cell h3 + p{margin-top:4px}
-pre{margin:12px 0 0;padding:14px 16px;border-radius:var(--radius-btn);overflow-x:auto;
-  background:var(--code-bg);color:var(--code-fg);font:13px/1.65 ui-monospace,Consolas,"Cascadia Mono",monospace}
+.cell.soft{background:var(--accent-soft);border-color:transparent}
+.cell.dark{background:var(--code-bg);border-color:transparent;color:var(--code-fg)}
+.cell.dark h3{color:#fff}
+.cell.dark p{color:#a9a9b8}
+pre{margin:14px 0 0;padding:15px 17px;border-radius:var(--r-btn);overflow-x:auto;background:var(--code-bg);
+  color:var(--code-fg);font:12.8px/1.7 ui-monospace,Consolas,"Cascadia Mono",monospace}
 code{font-family:ui-monospace,Consolas,"Cascadia Mono",monospace;font-size:.92em}
-p code,li code,td code,th code{background:var(--panel-2);padding:1px 6px;border-radius:5px}
-.cell.dark code{background:#26262e;color:#fff}
+p code,li code,td code,th code{background:var(--band);padding:2px 6px;border-radius:5px}
 @media (max-width:900px){.bento{grid-template-columns:1fr 1fr}.cell.wide{grid-column:span 2}}
 @media (max-width:640px){.bento{grid-template-columns:1fr}.cell.wide{grid-column:span 1}}
 
-/* 规格表 */
-table{border-collapse:collapse;width:100%;font-size:15px}
-th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
-th{color:var(--muted);font-weight:600;width:34%}
-tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+/* 通用表格 */
+table.spec{border-collapse:collapse;width:100%;font-size:15.5px}
+table.spec th,table.spec td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line);vertical-align:top}
+table.spec th{color:var(--muted);font-weight:600;width:32%}
+table.spec tbody tr:last-child th,table.spec tbody tr:last-child td{border-bottom:0}
 
 /* 价格 */
-.buy{display:grid;grid-template-columns:1.15fr .85fr;gap:24px;align-items:center;
-  border:1px solid var(--line);border-radius:var(--radius-card);padding:28px}
-.price{font-size:42px;font-weight:700;letter-spacing:-.02em;line-height:1.1}
-.price small{font-size:16px;font-weight:500;color:var(--muted);letter-spacing:0}
-.buy .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
-.buy ul{margin:0;padding-left:20px;color:var(--muted);font-size:15px}
-.buy ul li{margin:5px 0}
-@media (max-width:768px){.buy{grid-template-columns:1fr;gap:18px;padding:22px}.price{font-size:34px}}
+.price-box{display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;
+  border:1px solid var(--line);border-radius:var(--r-card);padding:38px;background:var(--card);box-shadow:var(--shadow)}
+.amount{font-size:48px;font-weight:700;letter-spacing:-.03em;line-height:1;margin:0 0 6px}
+.amount small{font-size:16px;font-weight:500;color:var(--muted);letter-spacing:0}
+.price-box ul{margin:0;padding-left:20px;color:var(--muted);font-size:15.5px}
+.price-box li{margin:8px 0}
+@media (max-width:820px){.price-box{grid-template-columns:1fr;gap:22px;padding:26px}.amount{font-size:38px}}
 
-/* 常见问题 */
-details{border-bottom:1px solid var(--line);padding:16px 0}
+/* FAQ */
+details{border-bottom:1px solid var(--line);padding:18px 0}
 details:first-of-type{border-top:1px solid var(--line)}
 summary{cursor:pointer;font-weight:600;font-size:16.5px;list-style:none}
 summary::-webkit-details-marker{display:none}
 summary::after{content:"＋";float:right;color:var(--muted);font-weight:400}
 details[open] summary::after{content:"－"}
-details p{margin:10px 0 2px;color:var(--muted);max-width:62em}
+details p{margin:10px 0 2px;color:var(--muted);max-width:64em}
 
-footer{border-top:1px solid var(--line);padding:34px 0 54px;font-size:14px;color:var(--muted)}
+/* 收尾 */
+.final{text-align:center;padding:90px 0}
+.final h2{font-size:34px}
+.final .actions{justify-content:center}
+
+footer{border-top:1px solid var(--line);padding:36px 0 60px;font-size:14px;color:var(--muted)}
 footer a{color:var(--muted)}
-footer .row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
+footer .row{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:12px}
+
+/* 滚动显现: 只用 CSS + 一个 observer, 尊重系统设置 */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 </style>
 </head>
 <body>
@@ -146,6 +187,7 @@ footer .row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
   <div class="wrap">
     <a class="brand" href="index.html"><span class="mark">复</span>妙复制大师</a>
     <nav>
+      <a href="#scenes">使用场景</a>
       <a href="#engines">两套引擎</a>
       <a href="#features">功能</a>
       <a href="#cli">命令行</a>
@@ -159,12 +201,18 @@ footer .row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
 <section class="hero">
   <div class="wrap">
     <div>
-      <p class="kicker">Windows 10 / 11 x64 · 完全离线</p>
-      <h1>把几十 GB 的文件安稳搬完</h1>
+      <p class="pill">Windows 10 / 11 · x64 · <b>完全离线</b></p>
+      <h1>把几十 GB 的文件<br>安稳搬完</h1>
       <p class="lede">复制、移动、校验。一个 500 KB 的 EXE，两套复制引擎，右键菜单直接调用，不需要管理员权限。</p>
       <div class="actions">
         <a class="btn" href="https://buy.stripe.com/test_fZu9AM9M1gPo5fu8Wq0Fi0d">购买 ¥35</a>
-        <a class="btn ghost" href="#engines">看看引擎差别</a>
+        <a class="btn ghost" href="download/CopyDash-Setup.exe">下载安装包</a>
+      </div>
+      <div class="stats">
+        <div><b>408 KB</b>安装包体积</div>
+        <div><b>2 套</b>复制引擎</div>
+        <div><b>0</b>联网代码</div>
+        <div><b>¥35</b>一次性买断</div>
       </div>
     </div>
     <figure class="shot">
@@ -175,14 +223,62 @@ footer .row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
   </div>
 </section>
 
-<section id="engines">
+<section id="scenes" class="reveal">
+  <div class="wrap">
+    <div class="sect-head">
+      <h2>什么时候用得上</h2>
+      <p class="lede">Windows 自带的复制在最需要它的时候最不可靠：几十万个文件、超长路径、中途断电。这三件事它替你兜住。</p>
+    </div>
+    <div class="scenes">
+      <div class="scene tall">
+        <div class="n">01 · 系统迁移</div>
+        <h3>换硬盘、换电脑，把整个盘搬过去</h3>
+        <p>几十万个文件的目录树交给柔博引擎，长路径和占用中的文件自动重试；跑完之后按校验结果逐个核对，失败的单独列出来重跑，不用自己盯着进度条猜哪里漏了。</p>
+      </div>
+      <div class="scene">
+        <div class="n">02 · 照片与视频备份</div>
+        <h3>几百 GB 素材从相机卡到移动硬盘</h3>
+        <p>大文件走原生引擎，进度、速度、剩余时间一目了然；复制完成后做哈希校验，结果不一致的文件单独列出，不会悄悄混进备份目录。</p>
+      </div>
+      <div class="scene">
+        <div class="n">03 · 日常整理</div>
+        <h3>右键「复制到…」「移动到…」</h3>
+        <p>在资源管理器里选中文件或文件夹，直接右键调用，不用先开一个复制工具再找目录。只写当前用户的注册表项，卸载时一并清除。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band reveal">
+  <div class="wrap">
+    <div class="sect-head">
+      <h2>和资源管理器自带复制比</h2>
+      <p class="lede">同样的文件、同样的硬盘，区别在出错和收尾的时候。</p>
+    </div>
+    <table class="cmp">
+      <thead>
+        <tr><th>场景</th><th>资源管理器自带复制</th><th>妙复制大师</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>文件被占用 / 权限不足</td><td>弹窗中断，整批停下等人工判断</td><td>按策略自动重试，失败项单独记录，其余继续</td></tr>
+        <tr><td>超长路径</td><td>报错跳过，路径里的文件直接漏掉</td><td>柔博引擎按 robocopy 规则处理长路径</td></tr>
+        <tr><td>几十万个文件</td><td>进度停滞、速度显示归零</td><td>多线程搬运，进度与速度全程可见</td></tr>
+        <tr><td>收尾核对</td><td>没有清单，靠人工抽查</td><td>失败清单逐条列出原因，可只重试失败项</td></tr>
+        <tr><td>数据一致性</td><td>不校验</td><td>可选哈希校验，结果不一致单独列出</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="engines" class="reveal">
   <div class="wrap">
     <div class="sect-head">
       <h2>两套引擎，看活儿挑</h2>
-      <p class="lede">同一个界面，底层可以换。海量小文件和长路径交给柔博引擎，大文件与本地搬运交给原生引擎，界面上随时切换。</p>
+      <p class="lede">同一个界面，底层随时切换。海量小文件和长路径交给柔博引擎，大文件与本地搬运交给原生引擎。</p>
     </div>
     <div class="engines">
-      <div class="engine tinted">
+      <div class="engine a">
+        <span class="tag">海量小文件 / 长路径</span>
         <h3>柔博引擎</h3>
         <p class="en">RoboEngine · 调用 Windows 自带 robocopy</p>
         <ul>
@@ -192,7 +288,8 @@ footer .row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
           <li>行为与系统自带工具一致，可预期</li>
         </ul>
       </div>
-      <div class="engine">
+      <div class="engine b">
+        <span class="tag">大文件 / 本地搬运</span>
         <h3>原生引擎</h3>
         <p class="en">CNMEngine · 自研实现，不调用系统 robocopy</p>
         <ul>
@@ -206,11 +303,11 @@ footer .row{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:12px}
   </div>
 </section>
 
-<section id="features">
+<section id="features" class="band reveal">
   <div class="wrap">
     <div class="sect-head">
       <h2>日常真正用到的几件事</h2>
-      <p class="lede">这里不是功能清单，是这套工具替你处理掉的那些麻烦。</p>
+      <p class="lede">不是功能清单，是这套工具替你处理掉的那些麻烦。</p>
     </div>
     <div class="bento">
       <div class="cell wide">
@@ -244,13 +341,13 @@ CopyDash.exe copy --verify --dest "F:\备份" "D:\照片"</code></pre>
   </div>
 </section>
 
-<section id="cli">
+<section id="cli" class="reveal">
   <div class="wrap">
     <div class="sect-head">
       <h2>不打开界面也能跑</h2>
       <p class="lede">源用位置参数，目标用 <code>--dest</code>，两条命令就能配好一个每日备份任务。</p>
     </div>
-    <table>
+    <table class="spec">
       <tbody>
         <tr><th><code>copy</code> 或 <code>move</code></th><td>动作，二选一，默认是 copy</td></tr>
         <tr><th><code>--dest 目录</code></th><td>目标目录，其余位置参数都当作源</td></tr>
@@ -260,53 +357,59 @@ CopyDash.exe copy --verify --dest "F:\备份" "D:\照片"</code></pre>
         <tr><th><code>--ui</code></th><td>带界面跑，边跑边看进度</td></tr>
       </tbody>
     </table>
+    <p class="muted small" style="margin-top:14px">退出码与安装程序返回码见 <a href="exit-codes.html">安装程序退出代码</a>。</p>
   </div>
 </section>
 
-<section id="price">
+<section id="price" class="band reveal">
   <div class="wrap">
-    <div class="buy">
+    <div class="sect-head">
+      <h2>价格</h2>
+      <p class="lede">一次性买断，没有订阅，没有功能限制。</p>
+    </div>
+    <div class="price-box">
       <div>
-        <div class="price">¥35 <small>／ $4.99，一次性买断</small></div>
-        <p class="muted small" style="margin-top:8px">一个订单编号对应一台电脑。换机时用同一个编号在新机器上重新激活即可，旧机自动失效。</p>
+        <p class="amount">¥35 <small>／ 约 $4.99</small></p>
+        <p class="muted">终身授权，每份授权对应一台设备。换机时在新设备上用同一订单编号重新激活，旧机自动失效。</p>
         <div class="actions">
           <a class="btn" href="https://buy.stripe.com/test_fZu9AM9M1gPo5fu8Wq0Fi0d">购买 ¥35</a>
           <a class="btn ghost" href="buy.html">详情与安装包</a>
         </div>
       </div>
       <ul>
-        <li>终身使用，免费更新</li>
-        <li>无订阅、无广告、无统计</li>
-        <li>银行卡、支付宝、微信、Apple Pay、Google Pay、Link</li>
-        <li>海外价格 $4.99，按所在市场自动切换</li>
+        <li>含全部功能与后续更新</li>
+        <li>无订阅、无广告、无使用统计</li>
+        <li>支付方式与币种按所在国家或地区自动显示</li>
+        <li>中国大陆可用支付宝、微信支付或银行卡</li>
+        <li>其他地区以本地货币结算，支持当地常用方式</li>
       </ul>
     </div>
   </div>
 </section>
 
-<section>
+<section class="reveal">
   <div class="wrap">
     <div class="sect-head">
       <h2>运行环境</h2>
     </div>
-    <table>
+    <table class="spec">
       <tbody>
         <tr><th>操作系统</th><td>Windows 10 x64 1809 或更高，支持 Windows 11</td></tr>
         <tr><th>架构</th><td>x64</td></tr>
         <tr><th>权限</th><td>不需要管理员权限</td></tr>
-        <tr><th>网络</th><td>完全离线运行，程序里没有联网代码</td></tr>
-        <tr><th>体积</th><td>便携版单文件约 500 KB</td></tr>
+        <tr><th>依赖</th><td>无 .NET 运行时、无第三方组件</td></tr>
+        <tr><th>网络</th><td>程序完全离线运行，里面没有联网代码</td></tr>
+        <tr><th>体积</th><td>便携版单文件约 500 KB，安装包 408 KB</td></tr>
       </tbody>
     </table>
   </div>
 </section>
 
-<section id="faq">
+<section id="faq" class="band reveal">
   <div class="wrap">
     <div class="sect-head">
       <h2>常见问题</h2>
     </div>
-
     <details>
       <summary>复制到一半失败了怎么办？</summary>
       <p>失败的文件会逐个列出原因，点重试就只跑失败的那些。长路径、文件被别的程序占用、权限不足是最常见的三类原因，柔博引擎对这三类情况处理得更稳。</p>
@@ -330,6 +433,17 @@ CopyDash.exe copy --verify --dest "F:\备份" "D:\照片"</code></pre>
   </div>
 </section>
 
+<section class="final">
+  <div class="wrap">
+    <h2>几十 GB 的文件，一次搬完</h2>
+    <p class="lede" style="margin:0 auto 6px">¥35 一次性买断，终身使用，含后续更新。</p>
+    <div class="actions">
+      <a class="btn" href="https://buy.stripe.com/test_fZu9AM9M1gPo5fu8Wq0Fi0d">购买 ¥35</a>
+      <a class="btn ghost" href="download/CopyDash-Setup.exe">下载安装包（408 KB）</a>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">
     <div class="row">
@@ -344,5 +458,14 @@ CopyDash.exe copy --verify --dest "F:\备份" "D:\照片"</code></pre>
   </div>
 </footer>
 
+<script>
+// 滚动显现: 只做透明度与位移, 尊重系统"减少动态效果"
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{rootMargin:'0px 0px -12% 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}else{
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+}
+</script>
 </body>
 </html>
