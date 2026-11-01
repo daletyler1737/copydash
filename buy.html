@@ -3,96 +3,125 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>购买与下载 Buy &amp; Download — 妙复制大师 CopyDash</title>
+<title>购买 · 妙复制大师 CopyDash</title>
+<meta name="description" content="妙复制大师 CopyDash 终身授权，¥35 一次性买断。支付方式与币种按所在国家或地区自动显示，由 Stripe 处理。">
 <style>
-:root{--bg:#fff;--fg:#1a1a1a;--muted:#6b7280;--line:#e5e7eb;--card:#fafafa;--accent:#5B67CA}
+:root{
+  --bg:#fff;--panel:#f7f7f9;--fg:#17171a;--muted:#61616b;--line:#e6e6ea;--line-2:#d8d8de;
+  --accent:#5B67CA;--accent-fg:#fff;--radius:12px;--radius-btn:9px;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#101014;--panel:#17171c;--fg:#f0f0f3;--muted:#9a9aa4;--line:#26262e;--line-2:#33333d;
+        --accent:#8f97e8;--accent-fg:#111116}
+}
 *{box-sizing:border-box}
-body{margin:0;padding:40px 20px;font:16px/1.7 -apple-system,"Segoe UI","Microsoft YaHei",sans-serif;color:var(--fg);background:var(--bg)}
-main{max-width:760px;margin:0 auto}
-h1{font-size:28px;margin:0 0 4px}
-h2{font-size:19px;margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
-.sub{color:var(--muted);margin:0 0 28px}
-.price{display:flex;gap:24px;align-items:baseline;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px 22px;margin:0 0 8px}
-.price b{font-size:30px;color:var(--accent)}
-.price span{color:var(--muted);font-size:14px}
-.btn{display:inline-block;padding:12px 22px;border-radius:9px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;border:0;cursor:pointer;font-size:16px;font-family:inherit}
-.btn.ghost{background:#fff;color:var(--accent);border:1.5px solid var(--accent)}
-.btn:disabled{opacity:.5;cursor:not-allowed}
-.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin:14px 0}
-.qr{display:flex;gap:28px;flex-wrap:wrap;margin:16px 0}
-.qr figure{margin:0;text-align:center}
-.qr img,.qr .ph{width:190px;height:190px;border-radius:10px;border:1px solid var(--line);display:block;object-fit:contain;background:#fff}
-.qr .ph{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:13px;text-align:center;padding:10px;background:var(--card);border-style:dashed}
-.qr figcaption{font-size:14px;color:var(--muted);margin-top:8px}
-code{background:var(--card);border:1px solid var(--line);padding:2px 7px;border-radius:5px;font-size:13px;word-break:break-all}
-pre{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:14px;overflow-x:auto;font-size:13px}
-ol,ul{padding-left:22px}
-li{margin:5px 0}
-.note{background:#fff8e6;border:1px solid #f0d9a0;border-radius:9px;padding:12px 16px;font-size:14px;color:#6b5a1e;margin:16px 0}
-table{border-collapse:collapse;width:100%;font-size:14px;margin:12px 0}
-th,td{border:1px solid var(--line);padding:8px 11px;text-align:left}
-th{background:var(--card)}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.72 -apple-system,"Segoe UI Variable Display","Segoe UI","Microsoft YaHei",system-ui,sans-serif}
+.wrap{max-width:720px;margin:0 auto;padding:48px 22px 64px}
 a{color:var(--accent)}
-footer{margin-top:46px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+h1{font-size:30px;line-height:1.25;letter-spacing:-.01em;margin:0 0 10px}
+h2{font-size:18px;margin:40px 0 12px;font-weight:600}
+p{margin:0 0 14px}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.top{display:flex;align-items:center;gap:10px;margin-bottom:26px;font-size:15px}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--accent);color:var(--accent-fg);
+  display:grid;place-items:center;font-size:14px;font-weight:700}
+.top a{color:var(--muted);text-decoration:none}
+.card{border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.price{font-size:40px;font-weight:700;letter-spacing:-.02em;line-height:1.1;margin:0}
+.price small{font-size:15px;font-weight:500;color:var(--muted);letter-spacing:0}
+.facts{list-style:none;padding:0;margin:16px 0 0;color:var(--muted);font-size:15px}
+.facts li{margin:6px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;width:100%;
+  padding:14px 22px;margin-top:20px;border-radius:var(--radius-btn);background:var(--accent);
+  color:var(--accent-fg);text-decoration:none;font-weight:600;font-size:16.5px}
+.btn:hover{opacity:.92}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.pay{font-size:14px;color:var(--muted);margin-top:14px;text-align:center}
+ol{padding-left:20px;margin:0}
+ol li{margin:7px 0}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:10px 0}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;width:32%}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.9em;background:var(--panel);
+  border:1px solid var(--line);padding:2px 6px;border-radius:5px;word-break:break-all}
+.dl{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.dl a{padding:10px 16px;border:1px solid var(--line-2);border-radius:var(--radius-btn);
+  text-decoration:none;font-size:15px;font-weight:600;color:var(--fg)}
+.dl a:hover{border-color:var(--accent);color:var(--accent)}
+footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+footer a{color:var(--muted)}
+@media (max-width:520px){.price{font-size:33px}h1{font-size:24px}}
 </style>
 </head>
 <body>
-<main>
-<h1>妙复制大师 · CopyDash</h1>
-<p class="sub">Windows 10/11 文件复制 / 移动工具 — 双引擎 · 右键「复制到…」「移动到…」<br>
-Windows 10/11 file copy &amp; move utility — dual engine, right-click “Copy to…” / “Move to…”</p>
+<div class="wrap">
 
-<div class="price">
-  <div><b>$4.99</b> <span>USD · 一次性买断 one-time</span></div>
-  <div><b>¥35</b> <span>人民币 · 中国大陆 mainland China</span></div>
-  <div><span>免费更新 · 无广告 · 无订阅 · 完全离线<br>Free updates · no ads · no subscription · fully offline</span></div>
+  <div class="top">
+    <span class="mark">复</span>
+    <a href="index.html">妙复制大师 CopyDash</a>
+  </div>
+
+  <div class="card">
+    <h1>终身授权</h1>
+    <p class="price">¥35 <small>／ 约 $4.99，一次性买断</small></p>
+    <ul class="facts">
+      <li>一次付费，终身使用，含后续更新</li>
+      <li>每份授权对应一台设备，换机可迁移</li>
+      <li>无订阅、无广告、无使用统计，程序完全离线</li>
+    </ul>
+    <a class="btn" href="https://buy.stripe.com/test_fZu9AM9M1gPo5fu8Wq0Fi0d">立即购买</a>
+    <p class="pay">支付方式与币种按所在国家或地区自动显示。<br>
+      中国大陆可用支付宝、微信支付或银行卡；其他地区以本地货币结算，支持当地常用支付方式。<br>
+      支付由 Stripe 处理。</p>
+  </div>
+
+  <h2>购买流程</h2>
+  <ol>
+    <li>点击「立即购买」，在 Stripe 收银台完成支付。</li>
+    <li>付款完成后自动跳转至支付成功页，页面显示本次订单编号。</li>
+    <li>打开软件，依次进入「⋮」→「授权与激活」，粘贴订单编号，点击「立即激活」。</li>
+  </ol>
+  <p class="muted small">激活即时生效，无需等待邮件。请保存订单编号：重装系统或更换设备时需要重新使用。</p>
+
+  <h2>安装包</h2>
+  <table>
+    <tbody>
+      <tr><th>版本</th><td>1.0.1（Windows x64）</td></tr>
+      <tr><th>文件名</th><td><code>CopyDash-Setup.exe</code></td></tr>
+      <tr><th>大小</th><td>418,093 字节（408 KB）</td></tr>
+      <tr><th>SHA-256</th><td><code>1be3e127c782ee976586b93636a75a774e64a890c75b1a82fee0c334540d0ac3</code></td></tr>
+      <tr><th>静默安装</th><td><code>CopyDash-Setup.exe /S</code></td></tr>
+    </tbody>
+  </table>
+  <div class="dl">
+    <a href="download/CopyDash-Setup.exe">下载安装包（408 KB）</a>
+    <a href="download/CopyDash-Portable-1.0.1.zip">下载便携版 ZIP（315 KB）</a>
+  </div>
+
+  <h2>系统要求</h2>
+  <table>
+    <tbody>
+      <tr><th>操作系统</th><td>Windows 10 x64 1809 或更高，支持 Windows 11</td></tr>
+      <tr><th>权限</th><td>不需要管理员权限</td></tr>
+      <tr><th>依赖</th><td>无. NET 运行时、无第三方组件；柔博引擎使用系统自带 <code>robocopy.exe</code>，可切换为原生引擎</td></tr>
+      <tr><th>网络</th><td>程序完全离线运行</td></tr>
+    </tbody>
+  </table>
+
+  <h2>发票与退款</h2>
+  <p class="muted">付款凭证由 Stripe 在支付完成后发送至所填邮箱。退款政策与服务条款详见<a href="terms.html">服务条款</a>；如有问题请通过页脚邮箱联系。</p>
+
+  <footer>
+    <a href="index.html">首页</a> ·
+    <a href="privacy.html">隐私策略</a> ·
+    <a href="terms.html">服务条款</a> ·
+    <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a><br>
+    © 2026 dale003 · 妙复制大师 CopyDash
+  </footer>
+
 </div>
-
-<h2>一、购买 / How to buy</h2>
-<p>一次性买断 <b>$4.99</b>（中国大陆约 <b>¥35</b>）：一次付费，终身使用，含全部功能与后续更新 —— 没有订阅、没有二次收费、没有功能限制。</p>
-<div class="row" style="gap:8px;flex-wrap:wrap">
-  <!-- ponytail: 上线只改这 6 个链接: test_ → live 链接(其余不用动) -->
-  <a class="btn" href="https://buy.stripe.com/test_28E28kcYd42CbDSegK0Fi0a">¥35 中国大陆 · 支付宝 / 微信 / 银行卡</a>
-  <a class="btn" href="https://buy.stripe.com/test_14A3cof6l1UufU82y20Fi0b">HK$4.99 香港 · 支付宝 / 银行卡</a>
-  <a class="btn" href="https://buy.stripe.com/test_7sY9AMgap42CfU81tY0Fi0c">$4.99 国际 · 卡 / Apple Pay / Google Pay / Link</a>
-</div>
-<div class="row" style="gap:8px;flex-wrap:wrap;margin-top:6px">
-  <a class="btn" href="https://buy.stripe.com/test_6oUcMY8HXbv48rGfkO0Fi05">€4.99 欧元区 · iDEAL / Bancontact / EPS / P24 / SEPA</a>
-  <a class="btn" href="https://buy.stripe.com/test_cNibIU3nDdDc0Zeb4y0Fi06">£4.99 英国 · 卡 / Bacs / Pay by Bank</a>
-  <a class="btn" href="https://buy.stripe.com/test_4gM14gbU92Yy8rGgoS0Fi07">₩6900 韩国 · KakaoPay / NaverPay / SamsungPay</a>
-</div>
-<p style="color:var(--muted);font-size:14px">支付由 <b>Stripe</b> 处理：银行卡 / Apple Pay / Google Pay / 支付宝 / 微信支付，按所在市场自动显示可用方式。</p>
-<p>付款完成后会自动跳转到<b>支付成功页</b>，页面上直接显示你的<b>订单编号</b>。复制该编号，打开软件 → ⋮ → 授权与激活 → 粘贴 → 立即激活，即刻生效，<b>无需等待邮件</b>。请妥善保存编号：重装系统或更换设备时仍需使用。</p>
-<p><b>中国大陆用户</b>：可直接使用<b>支付宝</b>或<b>微信支付</b>下单，付款后同样立即跳转到支付成功页并显示订单编号。</p>
-<p style="color:var(--muted);font-size:14px">Pay by card, Apple Pay, Google Pay, Alipay or WeChat Pay — <b>$4.99 / ¥35</b> one-time, processed by <b>Stripe</b>. The available methods are shown automatically for your market. After payment you are redirected to a <b>success page</b> showing your <b>order number</b>: copy it, then open the app → ⋮ → License &amp; activation → paste → Activate. It takes effect immediately — <b>no email needed</b>. Keep the number: you will need it again after reinstalling or switching devices.<br>
-Customers in mainland China can check out directly with Alipay or WeChat Pay — the success page works the same way.</p>
-
-<h2>二、安装包信息 Package info</h2>
-<table>
-  <tr><th>项目 / Item</th><th>值 / Value</th></tr>
-  <tr><td>文件名 / File</td><td><code>CopyDash-Setup-1.0.1.exe</code></td></tr>
-  <tr><td>版本 / Version</td><td>1.0.1（Windows x64）</td></tr>
-  <tr><td>大小 / Size</td><td>379,746 字节 (371 KB)</td></tr>
-  <tr><td>校验 / MD5</td><td><code>209de6cb468b0946da8249a7a29aab7a</code></td></tr>
-  <tr><td>静默安装 / Silent</td><td><code>CopyDash-Setup-1.0.1.exe /S</code></td></tr>
-</table>
-<p>下载地址 / Download（国内直链，实测 ~0.65 MB/s）：</p>
-<pre>https://api.gitcode.com/api/v5/repos/dale003/copydash/raw/installers/1.0.1/CopyDash-Setup-1.0.1.exe?ref=main</pre>
-
-<h2>三、系统要求 Requirements</h2>
-<ul>
-  <li>Windows 10 / 11，64 位（x64）</li>
-  <li>鼠标（最低要求中唯一必需项）</li>
-  <li>无需 .NET 运行时，无第三方依赖；内置柔博引擎使用系统自带 <code>robocopy.exe</code>，也可切换到原生引擎</li>
-</ul>
-
-<footer>
-  <a href="index.html">首页 Home</a> · <a href="privacy.html">隐私策略 Privacy</a> ·
-  <a href="terms.html">服务条款 Terms</a> ·
-  <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a> ·
-  <a href="https://github.com/daletyler1737/copydash/issues">GitHub Issues</a><br>
-  妙复制大师 CopyDash © 2026 dale003
-</footer>
-</main>
 </body>
 </html>
